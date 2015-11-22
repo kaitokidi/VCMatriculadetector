@@ -34,5 +34,5 @@ vectorPosiblesCaracteres = zeros(length(s),4);
 for k = 1:length(s)
     vectorPosiblesCaracteres(k,1:4) = s(k).BoundingBox;
 end
-vectorPosiblesCaracteres
+
 end

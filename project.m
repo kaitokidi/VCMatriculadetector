@@ -36,7 +36,6 @@ for i = 1:size(listing)
         hold on
         rectangle('Position',[left top width height],'Curvature',0.05,'EdgeColor', 'b')
         for k = 1:length(posiblesCaracteres)
-            posiblesCaracteres(k);
             rectangle('Position',[posiblesCaracteres(k,1)+left posiblesCaracteres(k,2)+top posiblesCaracteres(k,3) posiblesCaracteres(k,4)],'Curvature',0.05,'EdgeColor', 'r');
         end
         hold off
