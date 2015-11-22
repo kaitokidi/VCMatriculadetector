@@ -41,11 +41,11 @@ figure, imshow(img,[]);
 s = regionprops(L,'centroid','area','MajorAxisLength','MinorAxisLength','Orientation','BoundingBox');
 
 
-% eliminamos los que son demasiado grandes o demasiado pequeÃ±os o estan en
+% eliminamos los que son demasiado grandes o demasiado pequeños o estan en
 % vertical
 aux = [];
 for i = 1:n
-   if s(i).BoundingBox(4) > 0.03*y && s(i).BoundingBox(3) < 0.95*x % && s(i).Orientation < 45 && s(i).Orientation > -45
+   if s(i).BoundingBox(4) > 0.05*y && s(i).BoundingBox(3) < 0.99*x && s(i).Orientation < 45 && s(i).Orientation > -45
        aux = [aux;s(i)];
    end
 end
@@ -94,7 +94,7 @@ aux2 = s(1);
 maxRatioArea = 100*s(1).Area/(s(1).MajorAxisLength * s(1).MinorAxisLength);
 dist = 100*abs(4.5-(s(1).MajorAxisLength / s(1).MinorAxisLength));
 for i = 2:n
-    ratioArea = 100*s(i).Area/(s(i).MajorAxisLength * s(i).MinorAxisLength);
+    ratioArea = 100*s(i).Area/(s(i).MajorAxisLength * s(i).MinorAxisLength)
     ratio = s(i).MajorAxisLength / s(i).MinorAxisLength;
    if ratioArea-100*abs(4.5-ratio) > maxRatioArea-dist 
         aux2 = s(i);
@@ -114,6 +114,9 @@ output = aux2;
 
 
 hold on
+phi = linspace(0,2*pi,50);
+cosphi = cos(phi);
+sinphi = sin(phi);
 
 for k = 1:length(s)
     text(s(k).Centroid(1), s(k).Centroid(2), int2str(100.0*s(k).Area/(s(k).MajorAxisLength * s(k).MinorAxisLength)),'Color','red','FontSize',14);
