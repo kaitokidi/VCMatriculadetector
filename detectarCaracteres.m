@@ -17,7 +17,7 @@ avg = sum / n;
 aux = [];
 for i = 1:n
    pnis =  s(i).Orientation;
-   if (s(i).Orientation > 45 || s(i).Orientation < -45) && s(i).Area > 2*unidadArbitrariaDeTamanyio %&& s(i).BoundingBox(4) > avg - unidadArbitrariaDeTamanyio &&   s(i).BoundingBox(4) < avg + unidadArbitrariaDeTamanyio
+   if (s(i).Orientation > 45 || s(i).Orientation < -45) && s(i).BoundingBox(4) > 2*unidadArbitrariaDeTamanyio %&& s(i).BoundingBox(4) > avg - unidadArbitrariaDeTamanyio &&   s(i).BoundingBox(4) < avg + unidadArbitrariaDeTamanyio
        aux = [aux;s(i)];
    end
 end
