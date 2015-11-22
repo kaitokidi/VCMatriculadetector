@@ -1,5 +1,5 @@
-function [left, top, width, height] = deteccioMatricula( texture )
-img = rgb2gray(texture);
+function vectorPosibleMatricula = deteccioMatricula( texture )
+img = texture;
 
 [x y] = size(img);
 
@@ -32,7 +32,9 @@ midy = floor(y/2);
 % 
 img = imclearborder(img);
 % figure, imshow(img,[]);
-img = im2bw(img, graythresh(img));
+% % % img = im2bw(img, graythresh(img));
+img = efficientLBP(img);
+img = rgb2gray(img);
 % figure, imshow(img,[]);
 img = imopen(img,strel('square',3));
 
@@ -45,16 +47,13 @@ s = regionprops(L,'centroid','area','MajorAxisLength','MinorAxisLength','Orienta
 % vertical
 aux = [];
 for i = 1:n
-   if s(i).BoundingBox(4) > 0.05*y && s(i).BoundingBox(3) < 0.99*x && s(i).Orientation < 45 && s(i).Orientation > -45
+   if s(i).BoundingBox(4) > 0.03*y && s(i).BoundingBox(3) < 0.95*x % && s(i).Orientation < 45 && s(i).Orientation > -45
        aux = [aux;s(i)];
    end
 end
 [n p] = size(aux);
 if n == 0
-    left = 1;
-    top = 1; 
-    width = 1; 
-    height = 1;
+    vectorPosibleMatricula = zeros(4m;
     return;
 end
 s = aux;
@@ -94,7 +93,7 @@ aux2 = s(1);
 maxRatioArea = 100*s(1).Area/(s(1).MajorAxisLength * s(1).MinorAxisLength);
 dist = 100*abs(4.5-(s(1).MajorAxisLength / s(1).MinorAxisLength));
 for i = 2:n
-    ratioArea = 100*s(i).Area/(s(i).MajorAxisLength * s(i).MinorAxisLength)
+    ratioArea = 100*s(i).Area/(s(i).MajorAxisLength * s(i).MinorAxisLength);
     ratio = s(i).MajorAxisLength / s(i).MinorAxisLength;
    if ratioArea-100*abs(4.5-ratio) > maxRatioArea-dist 
         aux2 = s(i);
@@ -114,9 +113,6 @@ output = aux2;
 
 
 hold on
-phi = linspace(0,2*pi,50);
-cosphi = cos(phi);
-sinphi = sin(phi);
 
 for k = 1:length(s)
     text(s(k).Centroid(1), s(k).Centroid(2), int2str(100.0*s(k).Area/(s(k).MajorAxisLength * s(k).MinorAxisLength)),'Color','red','FontSize',14);
@@ -132,6 +128,11 @@ left = output.BoundingBox(1);
 top = output.BoundingBox(2); 
 width = output.BoundingBox(3); 
 height = output.BoundingBox(4);
+
+vectorPosibleMatricula = zeros(length(s),4);
+for k = 1:length(s)
+    vectorPosibleMatricula(k,1:4) = s(k).BoundingBox;
+end
 
 % imshow(img);
 end

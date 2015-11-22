@@ -1,4 +1,5 @@
 close all
+clearvars
 
 % img = imread('Matricules/0945HVM.jpg');
 % img = imread('Matricules/5134FFJ.jpg');
@@ -16,7 +17,7 @@ for i = 1:size(listing)
 
     posiblesMatriculas = deteccioMatricula(img2);
     [xMatriculas yMatriculas] = size(posiblesMatriculas);
-    if x == 0
+    if xMatriculas == 0
          msgbox(strcat('No hay ninguna posible matricula para la imagen ', name ), 'icon', 'error')
          break;
     end
@@ -43,14 +44,14 @@ for i = 1:size(listing)
 end
 
 
-% name = '3740318759_b8ffd56bef.jpg';
-% name = listing(13).name;
+% name = 'muchMatriculas.jpg';
+% name = listing(15).name;
 % img2 = imread(strcat('Matricules/',name));
 % imgray = rgb2gray(img2);
 % 
 % posiblesMatriculas = deteccioMatricula(img2);
 % [xMatriculas yMatriculas] = size(posiblesMatriculas);
-% if x == 0
+% if xMatriculas == 0
 %      msgbox(strcat('No hay ninguna posible matricula para la imagen ', name ), 'icon', 'error')
 %      break;
 % end

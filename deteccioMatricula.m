@@ -1,4 +1,5 @@
 function vectorPosibleMatricula = deteccioMatricula( texture )
+% % % % % img = texture;
 img = rgb2gray(texture);
 
 [x y] = size(img);
@@ -33,10 +34,14 @@ midy = floor(y/2);
 img = imclearborder(img);
 % figure, imshow(img,[]);
 img = im2bw(img, graythresh(img));
+% % % % % img = efficientLBP(img);
+% % % % % img = rgb2gray(img);
+% % % % % img = im2bw(img, graythresh(img));
+% % % % % img = ~img;
 % figure, imshow(img,[]);
 img = imopen(img,strel('square',3));
 
-% % % figure, imshow(img,[]);
+% % figure, imshow(img,[]);
 [L, n] = bwlabel(img);
 s = regionprops(L,'centroid','area','MajorAxisLength','MinorAxisLength','Orientation','BoundingBox');
 
@@ -51,10 +56,7 @@ for i = 1:n
 end
 [n p] = size(aux);
 if n == 0
-    left = 1;
-    top = 1; 
-    width = 1; 
-    height = 1;
+    vectorPosibleMatricula = [[]];
     return;
 end
 s = aux;
@@ -113,22 +115,22 @@ output = aux2;
 
 
 
-% % % hold on
-% % % 
-% % % for k = 1:length(s)
-% % %     text(s(k).Centroid(1), s(k).Centroid(2), int2str(100.0*s(k).Area/(s(k).MajorAxisLength * s(k).MinorAxisLength)),'Color','red','FontSize',14);
-% % %     text(s(k).Centroid(1), s(k).Centroid(2)+25, int2str(abs(4.5-s(k).MajorAxisLength / s(k).MinorAxisLength)*100),'Color','green','FontSize',14);
-% % %     text(s(k).Centroid(1), s(k).Centroid(2)+50, int2str(100.0*s(k).Area/(s(k).MajorAxisLength * s(k).MinorAxisLength)-abs(4.5-s(k).MajorAxisLength / s(k).MinorAxisLength)*100),'Color','blue','FontSize',14);
-% % %     
-% % %     rectangle('Position',s(k).BoundingBox,'Curvature',0.05,'EdgeColor', 'r')
-% % % end
-% % % rectangle('Position',aux2.BoundingBox,'Curvature',0.05,'EdgeColor', 'b')
-% % % hold off
+% % hold on
 % % 
-% % % left = output.BoundingBox(1);
-% % % top = output.BoundingBox(2); 
-% % % width = output.BoundingBox(3); 
-% % % height = output.BoundingBox(4);
+% % for k = 1:length(s)
+% %     text(s(k).Centroid(1), s(k).Centroid(2), int2str(100.0*s(k).Area/(s(k).MajorAxisLength * s(k).MinorAxisLength)),'Color','red','FontSize',14);
+% %     text(s(k).Centroid(1), s(k).Centroid(2)+25, int2str(abs(4.5-s(k).MajorAxisLength / s(k).MinorAxisLength)*100),'Color','green','FontSize',14);
+% %     text(s(k).Centroid(1), s(k).Centroid(2)+50, int2str(100.0*s(k).Area/(s(k).MajorAxisLength * s(k).MinorAxisLength)-abs(4.5-s(k).MajorAxisLength / s(k).MinorAxisLength)*100),'Color','blue','FontSize',14);
+% %     
+% %     rectangle('Position',s(k).BoundingBox,'Curvature',0.05,'EdgeColor', 'r')
+% % end
+% % rectangle('Position',aux2.BoundingBox,'Curvature',0.05,'EdgeColor', 'b')
+% % hold off
+
+left = output.BoundingBox(1);
+top = output.BoundingBox(2); 
+width = output.BoundingBox(3); 
+height = output.BoundingBox(4);
 
 vectorPosibleMatricula = zeros(length(s),4);
 for k = 1:length(s)
