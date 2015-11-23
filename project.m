@@ -8,9 +8,9 @@ if ~exist('classificador','var')
 
     for ind = 1:30
 %         descriptors (:,ind) = jc(:,uint32(22+(ind-1)*75.1));
-        left = 1+(ind-1)*75.1;
+        left = floor(22 +(ind-1)*75.1 - 35/2);
         top = 1;
-        width = 75.1;
+        width = 35;
         height = 72;
         descriptors = [descriptors; sacaFeatures([left, top, width, height])];
     end;
