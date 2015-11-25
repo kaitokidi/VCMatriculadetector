@@ -1,0 +1,4 @@
+function caracter = caracterMasProbable(clasificador,  features)
+ [characters,scores] = predict (clasificador, features)
+end
+

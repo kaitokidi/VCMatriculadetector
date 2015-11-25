@@ -22,18 +22,15 @@ for j = 1:xMatriculas
     end
     caracteres = [];
     for k = 1:length(posiblesCaracteres)
-        leftPC = posiblesCaracteres(k,1)+left;
-        topPC = posiblesCaracteres(k,2)+top;
-        widthPC = posiblesCaracteres(k,3);
-        heightPC = posiblesCaracteres(k,4);
-        features = sacaFeatures(imgray(topPC:topPC+heightPC,leftPC:leftPC+widthPC));
-        caracteres = [caracteres; char(caracterMasProbable(clasificador,features))];
+        
+        features = sacaFeatures(posiblesCaracteres(k),imgray(top:top+height,left:left+width));
+        caracteres = [caracteres;caracterMasProbable(clasificador,features)];
     end
     % pintar si hay letras
     pintarRecuadro = false;
     hold on
     for k = 1:length(posiblesCaracteres)
-        if ~strcmp(caracteres(k),'-')
+        if caracteres(k) ~= ' '
             rectangle('Position',[posiblesCaracteres(k,1)+left posiblesCaracteres(k,2)+top posiblesCaracteres(k,3) posiblesCaracteres(k,4)],'Curvature',0.05,'EdgeColor', 'r');
             text(posiblesCaracteres(k,1)+left+posiblesCaracteres(k,3)/2,posiblesCaracteres(k,2)+top+posiblesCaracteres(k,4)/2,caracteres(k),'color', 'r');
             pintarRecuadro = true;
