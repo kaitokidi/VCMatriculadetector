@@ -1,4 +1,4 @@
-function matricula = lecturaMatricula( img, clasificador )
+function matricula = lecturaMatricula( img, clasificador,name )
 imgray = rgb2gray(img);
 
 posiblesMatriculas = deteccioMatricula(img);

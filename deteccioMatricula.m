@@ -2,10 +2,10 @@ function vectorPosibleMatricula = deteccioMatricula( texture )
 % % % % % img = texture;
 img = rgb2gray(texture);
 
-[x y] = size(img);
+[altura anchura] = size(img);
 
-midx = floor(x/2);
-midy = floor(y/2);
+% midx = floor(x/2);
+% midy = floor(y/2);
 
 % % Binarizar con regiones NOT BROKEN AT ALL
 % img0 = img(1:midx,1:midy);
@@ -31,7 +31,9 @@ midy = floor(y/2);
 % img = imfilter(img,fspecial('gaussian'));
 % figure, imshow(img,[]);
 % 
+
 img = imclearborder(img);
+img = histeq(img);
 % figure, imshow(img,[]);
 img = im2bw(img, graythresh(img));
 % % % % % img = efficientLBP(img);
@@ -41,7 +43,7 @@ img = im2bw(img, graythresh(img));
 % figure, imshow(img,[]);
 img = imopen(img,strel('square',3));
 
-% % figure, imshow(img,[]);
+% % % figure, imshow(img,[]);
 [L, n] = bwlabel(img);
 s = regionprops(L,'centroid','area','MajorAxisLength','MinorAxisLength','Orientation','BoundingBox');
 
@@ -50,7 +52,7 @@ s = regionprops(L,'centroid','area','MajorAxisLength','MinorAxisLength','Orienta
 % vertical
 aux = [];
 for i = 1:n
-   if s(i).BoundingBox(4) > 0.03*y && s(i).BoundingBox(3) < 0.95*x % && s(i).Orientation < 45 && s(i).Orientation > -45
+   if s(i).BoundingBox(4) > 0.03*altura && s(i).BoundingBox(3) < 0.95*anchura % && s(i).Orientation < 45 && s(i).Orientation > -45
        aux = [aux;s(i)];
    end
 end
@@ -114,7 +116,7 @@ output = aux2;
 
 
 
-
+% % 
 % % hold on
 % % 
 % % for k = 1:length(s)
@@ -127,10 +129,10 @@ output = aux2;
 % % rectangle('Position',aux2.BoundingBox,'Curvature',0.05,'EdgeColor', 'b')
 % % hold off
 
-left = output.BoundingBox(1);
-top = output.BoundingBox(2); 
-width = output.BoundingBox(3); 
-height = output.BoundingBox(4);
+% left = output.BoundingBox(1);
+% top = output.BoundingBox(2); 
+% width = output.BoundingBox(3); 
+% height = output.BoundingBox(4);
 
 vectorPosibleMatricula = zeros(length(s),4);
 for k = 1:length(s)

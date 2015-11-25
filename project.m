@@ -28,20 +28,20 @@ img = imread('Matricules/5406CWR.jpg');
 
 listing = dir('Matricules');
 
-% for i = 1:size(listing)
-%     if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
-%         continue;
-%     end
-%     name = listing(i).name;
-%     img2 = imread(strcat('Matricules/',name));
-%     lecturaMatricula(img2, classificador);
-% end
+for i = 1:size(listing)
+    if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
+        continue;
+    end
+    name = listing(i).name;
+    img2 = imread(strcat('Matricules/',name));
+    lecturaMatricula(img2, classificador, name);
+end
 
 
-name = 'muchMatriculas.jpg';
-name = listing(15).name;
-img2 = imread(strcat('Matricules/',name));
-lecturaMatricula(img2, classificador);
+% name = 'muchMatriculas.jpg';
+% name = listing(17).name;
+% img2 = imread(strcat('Matricules/',name));
+% lecturaMatricula(img2, classificador,name);
 
 
 
