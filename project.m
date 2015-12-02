@@ -1,11 +1,11 @@
 close all
-clearvars
+% clearvars
 
 if ~exist('classificador','var')
     jc = rgb2gray(imread('joc_de_caracters.jpg'));
     pp = imread('Joc_de_caracters_s3.jpg');
     descriptors = [];
-    tt = []
+    tt = [];
 
     posiblesCaracteres = detectarCaracteres(jc);
     
@@ -31,7 +31,7 @@ if ~exist('classificador','var')
         'B';'C';'D';'F';'G';'H';'J';'K';'L';'M';'N';'P';
         'R';'S';'T';'V';'W';'X';'Y';'Z'];
 
-    classificador = TreeBagger(100, descriptors, groups);
+    classificador = TreeBagger(100, [descriptors;tt], [groups;groups]);
 end
 
 
@@ -43,20 +43,20 @@ img = imread('Matricules/5406CWR.jpg');
 
 listing = dir('Matricules');
 
-% for i = 1:size(listing)
-%     if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
-%         continue;
-%     end
-%     name = listing(i).name;
-%     img2 = imread(strcat('Matricules/',name));
-%     lecturaMatricula(img2, classificador, name);
-% end
+for i = 1:size(listing)
+    if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
+        continue;
+    end
+    name = listing(i).name;
+    img2 = imread(strcat('Matricules/',name));
+    lecturaMatricula(img2, classificador, name);
+end
 
-
-name = 'muchMatriculas.jpg';
-name = listing(11).name;
-img2 = imread(strcat('Matricules/',name));
-lecturaMatricula(img2, classificador,name);
+% 
+% name = 'muchMatriculas.jpg';
+% name = listing(11).name;
+% img2 = imread(strcat('Matricules/',name));
+% lecturaMatricula(img2, classificador,name);
 
 
 

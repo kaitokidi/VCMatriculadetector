@@ -1,7 +1,7 @@
 function features = sacaFeatures(img)
     img = im2bw(img, graythresh(img));
     img = ~img;
-    img = imclose(img,strel('disk',2));
+%     img = imclose(img,strel('disk',2));
     [L, n] = bwlabel(img);
     s = regionprops(L,'perimeter','area','EulerNumber');
     t = 1;
@@ -12,7 +12,12 @@ function features = sacaFeatures(img)
             end
          end
     end
- 	figure, imshow(img);
-    features = [s(t).Perimeter/s(t).Area s(t).EulerNumber];
+    
+    [B,L] = bwboundaries(img,8);
+    contorno = B{1,1};
+    polarSignautr = polarSignature(contorno,60);
+    
+%  	figure, imshow(img);
+    features = [s(t).Perimeter/s(t).Area s(t).EulerNumber polarSignautr];
 end
 
