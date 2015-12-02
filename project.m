@@ -15,7 +15,7 @@ if ~exist('classificador','var')
         width = posiblesCaracteres(j,3); 
         height = posiblesCaracteres(j,4);
         descriptors = [descriptors; sacaFeatures(jc(top:top+height,left:left+width))];
-        tt = [tt; sacaFeatures(pp(top:top+height,left:left+width))];
+%         tt = [tt; sacaFeatures(pp(top:top+height,left:left+width))];
     end
     
 %     for ind = 1:30
@@ -31,7 +31,8 @@ if ~exist('classificador','var')
         'B';'C';'D';'F';'G';'H';'J';'K';'L';'M';'N';'P';
         'R';'S';'T';'V';'W';'X';'Y';'Z'];
 
-    classificador = TreeBagger(100, [descriptors;tt], [groups;groups]);
+%     classificador = TreeBagger(100, [descriptors;tt], [groups;groups]);
+    classificador = TreeBagger(100, descriptors, groups);
 end
 
 
@@ -39,7 +40,7 @@ end
 
 % img = imread('Matricules/0945HVM.jpg');
 % img = imread('Matricules/5134FFJ.jpg');
-img = imread('Matricules/5406CWR.jpg');
+% img = imread('Matricules/5406CWR.jpg');
 
 listing = dir('Matricules');
 
