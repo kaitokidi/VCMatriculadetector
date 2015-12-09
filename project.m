@@ -18,21 +18,35 @@ if ~exist('classificador','var')
 %         tt = [tt; sacaFeatures(pp(top:top+height,left:left+width))];
     end
     
-%     for ind = 1:30
-% %         descriptors (:,ind) = jc(:,uint32(22+(ind-1)*75.1));
-%         left = floor(22 +(ind-1)*75.1 - 35/2);
-%         top = 1;
-%         width = 35;
-%         height = 72;
-%         descriptors = [descriptors; sacaFeatures([left, top, width, height])];
-%     end;
-%     descriptors = descriptors';
     groups = ['0';'1';'2';'3';'4';'5';'6';'7';'8';'9';
         'B';'C';'D';'F';'G';'H';'J';'K';'L';'M';'N';'P';
         'R';'S';'T';'V';'W';'X';'Y';'Z'];
-
+    
+    v_no_se_que_pone = 0
+    lnd3xju4nker1n0 = 1
+    
+    listing = dir('LetrasGeneradas');
+    for i = 1:size(listing)
+        if (size(strfind(listing(i).name,'.tif'),2) == 0) 
+            continue;
+        end
+        if v_no_se_que_pone >= 4
+            lnd3xju4nker1n0 = lnd3xju4nker1n0 + 1; 
+            v_no_se_que_pone = 0;
+        end
+        
+        listing(i).name
+        descriptors = [descriptors; sacaFeatures( uint8(imread(strcat('LetrasGeneradas/',listing(i).name))))];
+        
+        groups = [groups; groups(lnd3xju4nker1n0)];
+        groups(lnd3xju4nker1n0)
+        
+        v_no_se_que_pone = v_no_se_que_pone+ 1;
+        
+    end
+    
 %     classificador = TreeBagger(100, [descriptors;tt], [groups;groups]);
-    classificador = TreeBagger(100, descriptors, groups);
+    classificador = TreeBagger(200, descriptors, groups);
 end
 
 
@@ -44,20 +58,20 @@ end
 
 listing = dir('Matricules');
 
-for i = 1:size(listing)
-    if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
-        continue;
-    end
-    name = listing(i).name;
-    img2 = imread(strcat('Matricules/',name));
-    lecturaMatricula(img2, classificador, name);
-end
+% for i = 1:size(listing)
+%     if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
+%         continue;
+%     end
+%     name = listing(i).name;
+%     img2 = imread(strcat('Matricules/',name));
+%     lecturaMatricula(img2, classificador, name);
+% end
 
-% 
-% name = 'muchMatriculas.jpg';
-% name = listing(11).name;
-% img2 = imread(strcat('Matricules/',name));
-% lecturaMatricula(img2, classificador,name);
+
+name = 'muchMatriculas.jpg';
+name = listing(12).name;
+img2 = imread(strcat('Matricules/',name));
+lecturaMatricula(img2, classificador,name);
 
 
 

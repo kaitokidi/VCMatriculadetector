@@ -27,7 +27,7 @@ for j = 1:xMatriculas
         widthPC = posiblesCaracteres(k,3);
         heightPC = posiblesCaracteres(k,4);
         features = sacaFeatures(imgray(topPC:topPC+heightPC,leftPC:leftPC+widthPC));
-        caracteres = [caracteres; char(caracterMasProbable(clasificador,features))];
+        caracteres = [caracteres; (caracterMasProbable(clasificador,features))];
     end
     % pintar si hay letras
     pintarRecuadro = false;
