@@ -22,24 +22,23 @@ if ~exist('classificador','var')
         'B';'C';'D';'F';'G';'H';'J';'K';'L';'M';'N';'P';
         'R';'S';'T';'V';'W';'X';'Y';'Z'];
     
-    v_no_se_que_pone = 0
-    lnd3xju4nker1n0 = 1
+    v_no_se_que_pone = 0;
+    lnd3xju4nker1n0 = 1;
     
     listing = dir('LetrasGeneradas');
     for i = 1:size(listing)
         if (size(strfind(listing(i).name,'.tif'),2) == 0) 
             continue;
         end
-        if v_no_se_que_pone >= 4
-            lnd3xju4nker1n0 = lnd3xju4nker1n0 + 1; 
+        if v_no_se_que_pone >= 4 
             v_no_se_que_pone = 0;
+            lnd3xju4nker1n0 = lnd3xju4nker1n0 + 1;
         end
         
-        listing(i).name
         descriptors = [descriptors; sacaFeatures( uint8(imread(strcat('LetrasGeneradas/',listing(i).name))))];
         
         groups = [groups; groups(lnd3xju4nker1n0)];
-        groups(lnd3xju4nker1n0)
+        groups(lnd3xju4nker1n0);
         
         v_no_se_que_pone = v_no_se_que_pone+ 1;
         
@@ -58,20 +57,20 @@ end
 
 listing = dir('Matricules');
 
-% for i = 1:size(listing)
-%     if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
-%         continue;
-%     end
-%     name = listing(i).name;
-%     img2 = imread(strcat('Matricules/',name));
-%     lecturaMatricula(img2, classificador, name);
-% end
+for i = 1:size(listing)
+    if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
+        continue;
+    end
+    name = listing(i).name;
+    img2 = imread(strcat('Matricules/',name));
+    lecturaMatricula(img2, classificador, name);
+end
 
-
-name = 'muchMatriculas.jpg';
-name = listing(12).name;
-img2 = imread(strcat('Matricules/',name));
-lecturaMatricula(img2, classificador,name);
+% 
+% name = 'muchMatriculas.jpg';
+% name = listing(12).name;
+% img2 = imread(strcat('Matricules/',name));
+% lecturaMatricula(img2, classificador,name);
 
 
 

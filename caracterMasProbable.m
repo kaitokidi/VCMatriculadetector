@@ -15,13 +15,15 @@ numero = true;
      else
         caracter = strcat('~',groups(argmax));
      end
- else
-     [maxvalue, argmax] =  max(scores(10:end));
-     if maxvalue >= 0.2
-        caracter = groups(argmax+9);
-     else
+%  else
+%      [maxvalue, argmax] =  max(scores(10:end));
+%      if maxvalue >= 0.2
+%         caracter = groups(argmax+9);
+%      else
+    groups(argmax+9)
+     strcat('~',groups(argmax+9))
         caracter = strcat('~',groups(argmax+9));
-     end
+%      end
  end
 
 end
