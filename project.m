@@ -55,14 +55,14 @@ end
 % img = imread('Matricules/5134FFJ.jpg');
 % img = imread('Matricules/5406CWR.jpg');
 
-listing = dir('Matricules');
+listing = dir('Matriculas');
 
 for i = 1:size(listing)
     if (size(strfind(listing(i).name,'.jpg'),2) == 0) 
         continue;
     end
     name = listing(i).name;
-    img2 = imread(strcat('Matricules/',name));
+    img2 = imread(strcat('Matriculas/',name));
     lecturaMatricula(img2, classificador, name);
 end
 

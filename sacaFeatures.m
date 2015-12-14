@@ -15,9 +15,9 @@ function features = sacaFeatures(img)
     
     [B,L] = bwboundaries(img,8);
     contorno = B{1,1};
-    polarSignautr = polarSignature(contorno,60);
+    polarSignautr = polarSignature(contorno,30);
     
-%     slope = SlopeRepresentation(contorno,60);
+    slope = SlopeRepresentation(contorno,30);
     
 %  	figure, imshow(img);
     features = [s(t).Perimeter/s(t).Area s(t).EulerNumber polarSignautr];
