@@ -20,6 +20,6 @@ function features = sacaFeatures(img)
     slope = SlopeRepresentation(contorno,30);
     
 %  	figure, imshow(img);
-    features = [s(t).Perimeter/s(t).Area s(t).EulerNumber polarSignautr];
+    features = [s(t).Perimeter/s(t).Area s(t).EulerNumber polarSignautr slope];
 end
 
